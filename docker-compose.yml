@@ -1,0 +1,26 @@
+version: "3"
+
+networks:
+  mynetwork:
+    external:
+      name: web
+
+services:
+  twitoryback:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ufian/podtema
+    restart: always
+    environment:
+    - TELEGRAM_TOKEN
+    - LOG_LEVEL
+    command: python /src/run.py
+    volumes:
+    - .:/src
+    networks:
+      default: {}
+      mynetwork:
+        aliases:
+        - tatarin
+    build: .
